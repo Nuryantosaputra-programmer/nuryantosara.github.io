@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Kalkulator</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 90vh;
+            background-color: white;
+        }
+        .nama1{
+            justify-content: center;
+            align-items: center;
+            height: 90vh;
+            background-color: white;
+        }
+        h4{
+            text-align: center; 
+            margin-bottom: 20px;
+            height: 60vh;
+        }
+        .kalkulator {
+            border: 3px solid white;
+            border-radius: 10px;
+            padding: 10px;
+            width: 200px;
+            background-color: darkorange;
+        }
+        input {
+            text-align: right;
+            box-sizing: border-box;
+            margin-bottom: 10px;
+            width: 100%;
+            padding: 5px;
+            font-size: 16px;
+            background-color: white;
+        }
+        .tombol {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 5px;
+        }
+        button {
+            padding: 10px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        h3 {
+            margin: 3;
+            text-align: center;
+            animation: changeColor 2s infinite;
+        }
+        @keyframes changeColor {
+            0% { 
+                color: lawngreen;
+                 }
+            25% {
+             color: yellow; 
+         }
+            50% { 
+                color: yellowgreen;
+                 }
+            75% { 
+                color: white;
+                 }
+            100% {
+             color: cyan;
+              }
+        }
+        .hapus { 
+            background-color: red;
+             }
+        .hapus:hover { 
+            background-color: darkred;
+             }
+        .kal { 
+            background-color: green;
+             }
+        .kal:hover {
+         background-color: darkgreen;
+          }
+        .btn { 
+            background-color: cyan;
+             }
+        .btn:hover { 
+            background-color: darkcyan;
+             }
+        .hapus1 { 
+            background-color: white;
+             }
+        .hapus1:hover { 
+            background-color: #808080;
+             }
+        .btn1 { 
+            background-color: yellow;
+             }
+        .btn1:hover { 
+            background-color: yellowgreen;
+             }
+
+            
+    </style>
+</head>
+<body>
+    <div class="kalkulator">
+        <h3>NURYANTO SAPUTRA</h3>
+        <input type="text" id="hasil">
+        <div class="tombol">
+            <button class="hapus" onclick="hapus()">C</button>
+            <button class="hapus1" onclick="hapus1()">&lt;</button>
+            <button class="btn1" onclick="tombol('/')">/</button>
+            <button class="btn1" onclick="tombol('*')">*</button>
+            <button class="btn" onclick="tombol('1')">1</button>
+            <button class="btn" onclick="tombol('2')">2</button>
+            <button class="btn" onclick="tombol('3')">3</button>
+            <button class="btn1" onclick="tombol('-')">-</button>
+            <button class="btn" onclick="tombol('4')">4</button>
+            <button class="btn" onclick="tombol('5')">5</button>
+            <button class="btn" onclick="tombol('6')">6</button>
+            <button class="btn1" onclick="tombol('+')">+</button>
+            <button class="btn" onclick="tombol('7')">7</button>
+            <button class="btn" onclick="tombol('8')">8</button>
+            <button class="btn" onclick="tombol('9')">9</button>
+            <button class="btn1" onclick="tombol('%')">%</button>
+            <button class="btn" onclick="tombol('0')">0</button>
+            <button class="btn1" onclick="tombol('.')">.</button>
+            <button class="kal" onclick="kal()">=</button>
+        </div>
+    </div>
+    <script>
+        function tombol(masuk) {
+            document.getElementById('hasil').value += masuk;
+        }
+
+        function hapus() {
+            document.getElementById('hasil').value = '';
+        }
+
+        function hapus1() {
+            const tampilan = document.getElementById('hasil');
+            tampilan.value = tampilan.value.slice(0, -1);
+        }
+
+        function kal() {
+            const tampilan = document.getElementById('hasil');
+            const exp = tampilan.value.replace(',', '.');
+
+            if (exp.includes('/0')) {
+                tampilan.value = 'Error: Tidak terhingga';
+                return;
+            }
+
+            try {
+                // Menghitung persentase
+                let result = exp;
+                const percentRegex = /(\d+(\.\d+)?)%/g;
+                result = result.replace(percentRegex, (match, p1) => {
+                    return (parseFloat(p1) / 100).toString();
+                });
+
+                // Menghitung hasil akhir
+                result = eval(result);
+                tampilan.value = result;
+            } catch (error) {
+                tampilan.value = 'Error';
+            }
+        }
+    </script>
+</body>
+</html>
